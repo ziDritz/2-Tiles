@@ -3,7 +3,6 @@
     {"id":{"name":"oTilesController","path":"objects/oTilesController/oTilesController.yy",},"order":0,},
     {"id":{"name":"oUtility","path":"objects/oUtility/oUtility.yy",},"order":2,},
     {"id":{"name":"spPlayer","path":"sprites/spPlayer/spPlayer.yy",},"order":0,},
-    {"id":{"name":"Object3","path":"objects/Object3/Object3.yy",},"order":3,},
     {"id":{"name":"ScreenToTilePos","path":"scripts/ScreenToTilePos/ScreenToTilePos.yy",},"order":0,},
     {"id":{"name":"fDefault","path":"fonts/fDefault/fDefault.yy",},"order":0,},
     {"id":{"name":"TilePosToScreen","path":"scripts/TilePosToScreen/TilePosToScreen.yy",},"order":1,},

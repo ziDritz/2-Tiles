@@ -25,12 +25,6 @@ if (global.code_phase == code.init) {
 	rows = 4;
 	tiles = ds_grid_create(columns, rows);
 
-	enum tile_e {
-		spawn_character,		//-1 : no spawn, 0 : spawn player, 1 : spawn ennemy
-		character,
-		last
-	}
-
 	// Set up
 	for (var yy = 0; yy < rows; yy++) {
 		for (var xx = 0; xx < columns; xx++) {
@@ -39,9 +33,10 @@ if (global.code_phase == code.init) {
 			var tile = ds_list_create();
 		
 			// Init data in tiles
-			for (var data = 0; data < tile_e.last; data++) {
-				tile[|data] = -1; 
-			}
+			tile = {
+				class : -1,
+				side : -1
+			};
 			tiles[# xx, yy] = tile;
 		}
 	}
@@ -57,34 +52,58 @@ grid_without_clamp_x = grid[2];
 grid_without_clamp_y = grid[3];
 	#endregion 
 	
-	#region		Character side switch	
+	#region		Tile de référence
+tile_ref = {
+	class : -1,
+	side : -1
+};
+	#endregion
+	
+	#region		Character
+
+		#region		Class
 // Init
 if (global.code_phase == code.init) {
-	side_current = 0;
+	class_current = 0;
+	enum CLASS {
+		UNIT
+	}
 }
 
 // Step
-if (keyboard_check_pressed(vk_right)) {
-	if (side_current + 1 < side_e.last)		side_current++;
-	else									side_current = side_e.player;
+class_current = CLASS.UNIT;
+		#endregion
+	
+		#region		Side toggle	
+// Init
+if (global.code_phase == code.init) {
+	side_current = 0;
+	enum SIDE {
+		PLAYER,
+		ENNEMY
+	}
 }
 
-if (keyboard_check_pressed(vk_left)) {
-	if (side_current - 1 >= 0)				side_current--;
-	else									side_current = side_e.ennemy;
+// Step
+if (keyboard_check_pressed(ord("I"))) {
+	if (side_current == SIDE.PLAYER)	side_current = SIDE.ENNEMY;
+	else								side_current = SIDE.PLAYER;
 }
+
+		#endregion
+	
 	#endregion
 
-	#region		When left clic -> Change tile's data with switchs
+	#region		When left clic -> Change tile's data
 if (mouse_check_button_pressed(mb_left) 
 && grid_without_clamp_x = grid_x
 && grid_without_clamp_y = grid_y) {
 	
 	var tile = tiles[# grid_x, grid_y];
 	
-	if (current_turn_state == turn_state.placing)	{
-		tile[|tile_e.spawn_character]	= true;
-		tile[|tile_e.character]			= side_current;
+	if (current_turn_state == turn_state.placing) {
+		tile.side		= side_current;
+		tile.class		= class_current;
 	}
 }
 	#endregion

@@ -21,17 +21,6 @@ grid_y = 0;
 
 #endregion
 
-#region		Characters
-
-enum side_e {
-	player,
-	ennemy,
-	last,
-}
-
-
-#endregion
-
 #region		Placing characters or actions
 
 // Placing characters
