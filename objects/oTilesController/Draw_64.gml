@@ -9,7 +9,7 @@ if (global.code_phase == code.init) {};
 			
 			draw_x = start_draw_x + i * sprite_get_width(spPlayer);
 			draw_y = start_draw_y - sprite_get_height(spPlayer);
-			draw_sprite(sprites_character[| i], 0, draw_x, draw_y);
+			draw_sprite(global.sprites_units[i], 0, draw_x, draw_y);
 			
 		}
 #endregion
