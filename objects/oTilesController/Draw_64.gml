@@ -5,7 +5,7 @@ if (global.code_phase == code.init) {};
 		start_draw_x =	sprite_get_width(spPlayer);
 		start_draw_y =	gui_height - sprite_get_height(spPlayer);
 
-		for (var i = 0; i < SIDE.ENNEMY +1 ; i++) {
+		for (var i = 0; i < SIDE.GM +1 ; i++) {
 			
 			draw_x = start_draw_x + i * sprite_get_width(spPlayer);
 			draw_y = start_draw_y - sprite_get_height(spPlayer);

@@ -6,7 +6,7 @@
     "path": "folders/Scripts.yy",
   },
   "resourceVersion": "1.0",
-  "name": "Display_Action_Nodes",
+  "name": "scUtility",
   "tags": [],
   "resourceType": "GMScript",
 }

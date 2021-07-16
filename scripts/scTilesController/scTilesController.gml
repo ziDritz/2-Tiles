@@ -18,3 +18,17 @@ grid_y = clamp(grid_y, 0, oTilesController.rows-1);
 return [grid_x, grid_y, grid_without_clamp_x, grid_without_clamp_y]
 
 }
+
+
+/// @desc
+function TilePosToScreen(){
+	
+var xx = argument[0];
+var yy = argument[1];
+	
+var draw_x = (xx - yy) * (isom_width / 2);
+var draw_y = (xx + yy) * (isom_height / 2);
+	
+return [draw_x, draw_y];
+
+}

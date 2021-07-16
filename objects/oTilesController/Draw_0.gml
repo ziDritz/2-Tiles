@@ -12,43 +12,45 @@ for (var xx = 0; xx < columns; xx++) {
 	
 		
 #region		Draw tile
-	with (tile)		draw_sprite(sprite, image_index, x, y);
-#endregion
-
-#region		Placing
-if (current_turn_state == TURN_STATE.PLACING) {
-
-	//previsualization placement
-	if (grid_without_clamp_x == grid_x 
-	&& grid_without_clamp_y == grid_y
-	&& grid_x == xx 
-	&& grid_y == yy)	{
-			draw_sprite_ext(global.sprites_units[tile.side], 0, draw_x, draw_y, 1, 1, 0, c_white, 0.5);
+	with (tile)	{
+		if (tile.side = SIDE.PLAYER)	draw_sprite(sprite, 1, x, y);
+		if (tile.side = SIDE.GM)	draw_sprite(sprite, 2, x, y);
 	}
-
-}
 #endregion
 
-#region		Actions
-	if (current_turn_state == TURN_STATE.ACTIONS) {
-	
-	#region		Draw Nodes
-		var node = nodes[# xx, yy];
-		if (ds_list_find_index(list_of_active_nodes, node) != -1) {
-			with (node) {
-				draw_sprite(spNode, 0, x, y) ;
-				draw_text(x, y, string(node.distance));
-			}
+
+switch (oFightStateController.fight_state) {
+	#region		FIGHT_STATE.INIT
+	case FIGHT_STATE.INIT:
+		if (mouse_grid_without_clamp_x == mouse_grid_x 
+		&& mouse_grid_without_clamp_y == mouse_grid_y
+		&& mouse_grid_x == xx 
+		&& mouse_grid_y == yy)	{
+				draw_sprite_ext(global.sprites_units[tile.side], 0, draw_x, draw_y, 1, 1, 0, c_white, 0.5);
 		}
+	break;
 	#endregion
 	
-	}
+	#region		FIGHT_STATE.ROUND
+	case FIGHT_STATE.ROUND:
+		if (variable_instance_exists(oFightMenu, "active_nodes")) {
+			// Draw Active Nodes
+			var node = oFightMenu.nodes[# xx, yy];
+			if (ds_list_find_index(oFightMenu.active_nodes, node) != -1)	draw_sprite(spNode, 0, node.x, node.y);
+		}
+	break;
+	#endregion
+}
+
+#region		Draw Units
+	if (tile.unit != noone)	draw_sprite(global.sprites_units[tile.unit.side], 0, tile.x, tile.y);
 #endregion
 	
 #region		Draw Cursor
-		if (xx == grid[0] && yy == grid[1])		draw_sprite(spCursor, 0, draw[0], draw[1]);	
+		if (xx == mouse_grid_x && yy == mouse_grid_y)		draw_sprite(spCursor, 0, draw[0], draw[1]);	
 #endregion	
 	
-}
-}
+}}
+
+
 
