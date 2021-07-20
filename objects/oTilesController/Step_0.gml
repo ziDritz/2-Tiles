@@ -20,38 +20,63 @@ mouse_grid_x				= mouse_grid[0];
 mouse_grid_y				= mouse_grid[1];
 mouse_grid_without_clamp_x	= mouse_grid[2];
 mouse_grid_without_clamp_y	= mouse_grid[3];
-tile_targetted				= tiles[# mouse_grid_x, mouse_grid_y];
+tile_targeted				= tiles[# mouse_grid_x, mouse_grid_y];
 #endregion 
 
 switch (oFightStateController.fight_state) {
+	#region		FIGHT_STATE.INIT
 	case FIGHT_STATE.INIT:
 	//choix step card (récmpense)
 	//placement random des keys
-	//placement des persos
-	#region		Placing
-	
-		if (mouse_check_button_pressed(mb_left) 
+	#region		Placing units
+		if (mouse_check_button_pressed(mb_left)
 		// Si on vise le board
 		&& mouse_grid_without_clamp_x == mouse_grid_x
 		&& mouse_grid_without_clamp_y == mouse_grid_y) {
-
-			var tile		= tiles[# mouse_grid_x, mouse_grid_y];
-			// Instance init
-			var unit_init = {
-				sprite_index	: global.sprites_units[tile.side],
-				image_index		: 0,
-				side			: tile.side
-			};
-			tile.unit = unit_init;			
+			tile_selected	= tile_targeted;
+			
+			if (tile_selected.unit == noone) {
+				var unit_init = {
+					sprite_index	: global.sprites_units[tile_selected.side],
+					image_index		: 0,
+					side			: tile_selected.side,
+					action_count	: 2,
+					attack_count	: 1
+				};
+				if (oFightStateController.round_state == ROUND_STATE.PLAYERS
+				&&	tile_selected.side = SIDE.PLAYER) {
+					array_push(players_units,unit_init);
+					tile_selected.unit = unit_init;
+				}
+				if (oFightStateController.round_state == ROUND_STATE.GM
+				&& tile_selected.side = SIDE.GM) {
+					array_push(gm_units,unit_init);
+					tile_selected.unit = unit_init;
+				}
+			}
 		}
 	#endregion
 	break;
+	#endregion
 	
-	
+	#region		FIGHT_STATE.ROUND
 	case FIGHT_STATE.ROUND:
 		switch (oFightStateController.round_state) {
 			#region		ROUND_STATE.INIT
 			case ROUND_STATE.INIT:
+				for (var i = 0; i < array_length(players_units); i++) {
+					players_units[i].action_count	= 2;
+					players_units[i].attack_count	= 1;
+					show_debug_message(players_units[i].action_count);
+					show_debug_message(players_units[i].attack_count);
+				}
+				for (var i = 0; i < array_length(gm_units); i++) {
+					gm_units[i].action_count	= 2;
+					gm_units[i].attack_count	= 1;
+					show_debug_message(gm_units[i].action_count);
+					show_debug_message(gm_units[i].attack_count);
+				}
+				
 			break;
 			#endregion
 			
@@ -60,11 +85,11 @@ switch (oFightStateController.fight_state) {
 				if (mouse_check_button_pressed(mb_left)) {
 				// Selecting Tile with a unit who performs action
 					if (is_tile_selected == false) 
-					&& (tile_targetted.unit != noone) 
-					&& (tile_targetted.unit.side == SIDE.PLAYER) {
+					&& (tile_targeted.unit != noone) 
+					&& (tile_targeted.unit.side == SIDE.PLAYER) {
 						is_tile_selected = true;
 						with (instance_create_depth(0, 0, -10, oFightMenu))	{ 
-							tile_selected	= other.tiles[# other.mouse_grid_x, other.mouse_grid_y];
+							tile_selected	= other.tile_targeted;
 						}
 					}
 				}
@@ -76,11 +101,12 @@ switch (oFightStateController.fight_state) {
 				if (mouse_check_button_pressed(mb_left)) {
 				// Selecting Tile with a unit who performs action
 					if (is_tile_selected == false) 
-					&& (tile_targetted.unit != noone) 
-					&& (tile_targetted.unit.side == SIDE.GM) {
+					&& (tile_targeted.unit != noone) 
+					&& (tile_targeted.unit.side == SIDE.GM)
+					&& (tile_targeted.unit.action_count > 0) {
 						is_tile_selected = true;
 						with (instance_create_depth(0, 0, -10, oFightMenu))	{ 
-							tile_selected	= other.tiles[# other.mouse_grid_x, other.mouse_grid_y];
+							tile_selected	= other.tile_targeted;
 						}
 					}
 				}
@@ -88,7 +114,7 @@ switch (oFightStateController.fight_state) {
 			#endregion
 		}
 	break;
-
+	#endregion
 }
 
 

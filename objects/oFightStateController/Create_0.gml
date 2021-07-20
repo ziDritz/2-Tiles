@@ -1,5 +1,7 @@
 /// @desc
 
+
+
 enum FIGHT_STATE {
 	INIT,
 	ROUND,
@@ -10,10 +12,6 @@ enum FIGHT_STATE {
 fight_state = 0;
 
 
-//case FIGHT_STATE.INIT:
-
-//case FIGHT_STATE.ROUND:
-
 enum ROUND_STATE {
 	INIT,
 	PLAYERS,
@@ -22,6 +20,5 @@ enum ROUND_STATE {
 end_turn		= false
 round_state		= 0;
 	
-//case FIGHT_STATE.CHECK_CONDITION:
-
-//case FIGHT_STATE.END:
+	
+players_victory = undefined;

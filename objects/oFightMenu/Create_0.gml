@@ -4,7 +4,7 @@ option_selected = -1;
 
 //Pages
 enum FIGHTMENU_COLUMNS {
-	NAME, FUNCTION
+	NAME, FUNCTION, IS_ENABLE
 }
 
 enum FIGHTMENU_OPTIONS {
@@ -33,6 +33,7 @@ for (var xx = 0; xx < oTilesController.columns;		xx++) {
 	draw	= TilePosToScreen(xx, yy);
 	draw_x	= draw[0]; 
 	draw_y	= draw[1]; 
+
 	var node = {
 		x			: draw_x,
 		y			: draw_y,
@@ -60,8 +61,7 @@ for (var xx = 0; xx < oTilesController.columns;		xx++) {
 	if (node_neigbour != undefined)						array_push(node.neigbours, node_neigbour);
 }}
 
-
 #endregion
 
 
-	
+

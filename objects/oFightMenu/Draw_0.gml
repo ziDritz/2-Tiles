@@ -27,6 +27,8 @@ for (var yy = 0; yy < array_height; yy++) {
 		c = c_orange;
 		txt_x = start_x - x_offset_fromItems;
 	}
+	
+	if (fightMenu[# FIGHTMENU_COLUMNS.NAME, yy] == "ATTACK") && (tile_selected.unit.attack_count == 0)	c = c_grey;
 		
 	draw_set_color(c);
 	draw_text(txt_x, txt_y, fightMenu[# FIGHTMENU_COLUMNS.NAME, yy]);

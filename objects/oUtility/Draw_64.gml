@@ -9,12 +9,10 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 
-
-debug[4] = "end_turn: " + string(oFightStateController.end_turn);
-debug[3] = "round_state: " + string(oFightStateController.round_state);
-debug[2] = "fight_state: " + string(oFightStateController.fight_state);
-debug[1] = "grid_x: " + string(oTilesController.mouse_grid_x);
-debug[0] = "grid_y: " + string(oTilesController.mouse_grid_y);
+if variable_instance_exists(oTilesController, "tile_selected") debug[3] = "tile_selected: " + string(oTilesController.tile_selected);
+debug[2] = "players_victory: " + string(oFightStateController.players_victory);
+debug[1] = "mouse_grid_x: " + string(oTilesController.mouse_grid_x);
+debug[0] = "mouse_grid_y: " + string(oTilesController.mouse_grid_y);
 debug_count = array_length(debug)
 debug_y = item_height * (debug_count-1) * 1.5;	//position du bas du texte	
 	

@@ -65,12 +65,15 @@ for (var xx = 0; xx < columns;	xx++) {
 
 #region		Units
 
-	#region		Side	
-		enum SIDE {
-			PLAYER,
-			GM
-		}
-	#endregion
+gm_units		= [];
+players_units	= [];
+
+#region		Side	
+enum SIDE {
+	PLAYER,
+	GM
+}
+#endregion
 	
 #endregion
 
